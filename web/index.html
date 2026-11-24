@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Merger</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="dropveil"><div>Drop clips to add them to the timeline</div></div>
+
+<header class="bar">
+  <div class="brand"><span class="tally"></span>Video Merger</div>
+  <div class="meta">
+    <span id="clipCount">0 clips</span>
+    <span class="tc" id="totalTime">00:00.00</span>
+    <span id="outSize" class="dim"></span>
+  </div>
+</header>
+
+<div id="noFFmpeg" class="banner" hidden>
+  FFmpeg was not found. Put <b>ffmpeg.exe</b> in the same folder as this program, then start it again.
+</div>
+
+<main class="layout">
+  <section class="monitor">
+    <div class="stage-wrap" id="stageWrap">
+      <div class="stage" id="stage">
+        <video id="player" playsinline></video>
+        <div class="empty" id="emptyStage">
+          <div class="empty-title">Drag your clips here</div>
+          <div class="dim">or <button class="link" id="pickBtn" type="button">choose files</button></div>
+        </div>
+        <div class="wm" id="wm" title="Drag to move the watermark"></div>
+        <div class="guide gx" id="guideX"></div>
+        <div class="guide gy" id="guideY"></div>
+      </div>
+    </div>
+    <div class="transport">
+      <button id="playBtn" class="tbtn" type="button" aria-label="Play">
+        <svg viewBox="0 0 24 24" class="i-play"><path d="M7 4.5v15l13-7.5z"/></svg>
+        <svg viewBox="0 0 24 24" class="i-pause"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg>
+      </button>
+      <button id="playAllBtn" class="tbtn wide" type="button">Play all</button>
+      <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Seek">
+      <span class="tc" id="clipTime">00:00.00 / 00:00.00</span>
+      <span id="nowName" class="dim ellipsis"></span>
+    </div>
+  </section>
+
+  <aside class="side">
+    <details id="wmPanel" class="panel">
+      <summary>
+        <span class="ptitle">Watermark</span>
+        <span class="psum" id="wmSummary"></span>
+        <svg viewBox="0 0 24 24" class="chev"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="pbody">
+        <label class="field">
+          <span>Text</span>
+          <input id="wmText" type="text" maxlength="120" placeholder="@YourPage">
+        </label>
+
+        <div class="field">
+          <span>Position <em class="dim">or drag it on the video</em></span>
+          <div class="grid9" id="grid9"></div>
+        </div>
+
+        <label class="field">
+          <span>Size <output id="sizeOut"></output></span>
+          <input id="wmSize" type="range" min="1" max="20" step="0.25">
+        </label>
+
+        <label class="field">
+          <span>Distance from edge <output id="marginOut"></output></span>
+          <input id="wmMargin" type="range" min="0" max="15" step="0.25">
+        </label>
+
+        <div class="field">
+          <span>Colour</span>
+          <div class="colors">
+            <input id="wmColor" type="color" aria-label="Pick colour">
+            <input id="wmHex" type="text" maxlength="7" spellcheck="false" aria-label="Hex colour">
+            <div class="swatches" id="swatches"></div>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Opacity <output id="opOut"></output></span>
+          <input id="wmOpacity" type="range" min="0" max="100" step="1">
+        </label>
+        <p class="saved dim" id="savedNote">Saved on this computer</p>
+      </div>
+    </details>
+
+    <div class="panel export">
+      <div class="ptitle">Export</div>
+      <label class="field">
+        <span>Save to folder</span>
+        <div class="row">
+          <input id="outDir" type="text" spellcheck="false">
+          <button id="browseBtn" class="btn" type="button">Browse</button>
+        </div>
+      </label>
+      <button id="exportBtn" class="go" type="button" disabled>Export video</button>
+      <div class="progress" id="progress" hidden>
+        <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+        <div class="prow"><span class="tc" id="pct">0%</span><button id="cancelBtn" class="link" type="button">Cancel</button></div>
+      </div>
+      <div class="result" id="result" hidden></div>
+      <button id="openBtn" class="btn ghost" type="button">Open output folder</button>
+    </div>
+  </aside>
+
+  <section class="timeline">
+    <div class="tl-resize" id="tlResize" title="Drag to resize the timeline" role="separator" aria-orientation="horizontal"></div>
+    <div class="tl-head">
+      <span class="ptitle">Timeline</span>
+      <span class="dim">Drag clips to change the order. Click one to watch it.</span>
+    </div>
+    <div class="track" id="track">
+      <button class="addclip" id="addBtn" type="button">
+        <span class="plus">+</span>
+        <span>Add clips</span>
+      </button>
+    </div>
+  </section>
+</main>
+
+<input id="fileInput" type="file" accept="video/*" multiple hidden>
+
+<div id="closed" class="closed" hidden>
+  <div>
+    <div class="empty-title">Video Merger has stopped</div>
+    <p class="dim">Double-click the program again to start it.</p>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+VIDEO MERGER
+
+1. Double-click VideoMerger.exe. It opens in your web browser.
+   (First time only: if Windows says "Windows protected your PC",
+   click "More info" then "Run anyway".)
+2. Drag your clips into the page.
+3. Drag the clips in the timeline to put them in order.
+   Click a clip to watch it, or press "Play all".
+4. Set up your watermark once in the Watermark section.
+   It is saved automatically for next time.
+5. Press "Export video". The finished video goes to the "output"
+   folder (or the folder you choose).
+
+Close the browser tab when you are done. The program stops by itself.
+Keep ffmpeg.exe in the same folder as VideoMerger.exe.

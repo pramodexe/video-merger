@@ -1,0 +1,4 @@
+dist/
+vendor-dl/
+settings.json
+output/
